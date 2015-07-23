@@ -28,8 +28,8 @@
 		<!-- Drop and re-create the database schema on startup -->
 		<property name="hbm2ddl.auto">create-drop</property>
 
-		<mapping class="com.emp.mgmt.persistence.Employee"/>
-		<mapping class="com.emp.mgmt.persistence.Role"/>
+		<mapping resource="emp-mgmt-sys/src/main/resources/META-INF/Employee.hbm.xml"/>
+		<mapping resource="emp-mgmt-sys/src/main/resources/META-INF/Role.hbm.xml"/>
 		
 	</session-factory>
 </hibernate-configuration>
