@@ -18,7 +18,6 @@ public class CURDServiceImpl {
 		curdServiceImpl.saveEmployee("Priya", 1);
 		curdServiceImpl.saveEmployee("ABC", 2);
 		curdServiceImpl.saveEmployee("DEF", 3);
-		
 
 	}
 
@@ -88,9 +87,7 @@ public class CURDServiceImpl {
 			List employee = session.createQuery("from emp").list();
 			for (Iterator iterator = employee.iterator(); iterator.hasNext();) {
 				Employee employee1 = (Employee) iterator.next();
-				System.out.println(employee1.getEmpID() + "  "
-						+ employee1.getEmpName() + "   "
-						+ employee1.getDeptID());
+				System.out.println(employee1.getId() + "  " + employee1.getEmpName() + "   " + employee1.getDeptID());
 			}
 			transaction.commit();
 		} catch (HibernateException e) {
@@ -107,8 +104,8 @@ public class CURDServiceImpl {
 		try {
 			transaction = session.beginTransaction();
 			Role role = new Role();
-			role.setDeptID(deptID);
-			role.setDeptName(dName);
+			role.setId(deptID);
+			role.setName(dName);
 			session.save(role);
 			transaction.commit();
 			System.out.println("Role inserted successfully");
@@ -130,7 +127,7 @@ public class CURDServiceImpl {
 			Query query = session.createQuery(queryStr);
 			query.setInteger("deptID", 2);
 			Role role = (Role) query.uniqueResult();
-			role.setDeptID(8);
+			role.setId(8);
 			session.update(role);
 			System.out.println("Dept ID updated successfully");
 		} catch (HibernateException e) {

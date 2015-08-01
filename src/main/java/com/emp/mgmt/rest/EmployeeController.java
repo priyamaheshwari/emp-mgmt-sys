@@ -26,9 +26,15 @@ public class EmployeeController {
 	@Autowired
 	private EmployeeService empService;
 
+	@RequestMapping(value = "/helloWorld", method = RequestMethod.GET)
+	public @ResponseBody String helloWorld() {
+		String helloWorld = "Hello World";
+		System.out.println(helloWorld);
+		return helloWorld;
+	}
+
 	@RequestMapping(value = "/add", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody
-	Status addEmployee(@RequestBody Employee employee) {
+	public @ResponseBody Status addEmployee(@RequestBody Employee employee) {
 		Status status = new Status();
 		try {
 			empService.addEmployee(employee);
@@ -37,20 +43,26 @@ public class EmployeeController {
 		} catch (Exception e) {
 			status.setCode(500);
 			status.setMessage("Unknown error occurred:" + e);
+			System.err.println("Error occurred:" + e);
 		}
+		System.out.println("returning status:" + status);
 		return status;
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public @ResponseBody
-	Employee getEmployee(@PathVariable("id") long id) {
-		Employee employee = null;
+	public @ResponseBody Employee getEmployee(@PathVariable("id") long id) {
+		Employee employee = new Employee();
+		employee.setDeptID(-1);
+		employee.setEmpName("Null");
+		employee.setId(-1);
 		try {
 			employee = empService.getEmployeeByID(id);
 
 		} catch (Exception e) {
 			e.printStackTrace();
+			System.err.println("Error occurred:" + e);
 		}
+		System.out.println("returning employee:" + employee);
 		return employee;
 	}
 }
